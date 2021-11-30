@@ -6,23 +6,19 @@
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-
 <main>
 
     <h1>Поиск постов</h1>
-
-    <form action="post_by_tag.html">
+    <form action="/tag/">
         <p>По тегу</p>
-        <select name="tag" >
-                <option value="еда">еда</option>
-                <option value="природа">природа</option>
-                <option value="вечеринка">вечеринка</option>
+        <select name="tag">
+            {% for tag in tags %}
+                <option value={{ tag }}>{{ tag }}</option>
+            {% endfor %}
         </select>
         <input type="submit" value="Найти" class="button">
     </form>
-
     <hr>
-
     <a href="post_form.html" class="button">Добавить пост</a>
 
 </main>

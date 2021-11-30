@@ -13,6 +13,10 @@ main {
 hr {
     margin: 32px 0;
 }
+h1 {
+    font-size: 32px;
+    font-family: "Times New Roman";
+}
 
 select {
     padding: 7px 6px;

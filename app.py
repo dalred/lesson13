@@ -1,3 +1,5 @@
+import json, os
+from pathlib import Path
 from flask import Flask, request, render_template, send_from_directory
 from functions import read_json
 POST_PATH = "posts.json"
@@ -29,12 +31,27 @@ def page_tag():
 
 @app.route("/post", methods=["GET", "POST"])
 def page_post_create():
-    pass
+    data = read_json(POST_PATH)
+    if request.method == "GET":
+        return render_template("post_form.html")
+    else:
+        file = request.files['picture']
+        path = Path(os.path.abspath(__file__)).parent
+        if not os.path.exists(path.joinpath("uploads", file.filename)):
+            file.save(path.joinpath("uploads/images", file.filename))
+        add_post = {
+            "pic": f"../{UPLOAD_FOLDER}/{file.filename}",
+            "content": request.form.get("content"),
+        }
+        data.append(add_post)
+        with open(POST_PATH, "w", encoding='utf-8') as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+        return render_template("post_uploaded.html", **add_post)
 
 
-@app.route("/uploads/<path:path>")
+@app.route("/uploads/images/<path:path>")
 def static_dir(path):
-    return send_from_directory("uploads", path)
+    return send_from_directory(UPLOAD_FOLDER, path)
 
 if __name__ == "__main__":
     app.run('127.0.0.1', 8000)

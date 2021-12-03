@@ -7,11 +7,11 @@ def read_json(name):
         return json.load(file)
 
 
-def search_tag(tag_name):
+def search_tag(tag_name, POST_PATH):
     tags = []
     tag = str("#") + tag_name
-    for i in read_json('posts.json'):
-        if tag in i['content']:
+    for i in read_json(POST_PATH):
+        if tag in i['content'].lower():
             tags.append(i)
     return tags
 
@@ -20,7 +20,7 @@ def view_tag(POST_PATH):
     for i in read_json(POST_PATH):
         for tag in i['content'].split(' '):
             if '#' in tag:
-                tags.append(tag.lstrip("#"))
+                tags.append(tag.lstrip("#").lower())
     tags = set(tags)
     return tags
 

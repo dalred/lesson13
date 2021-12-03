@@ -16,7 +16,7 @@ def page_index():
 @app.route("/tag/", methods=["GET"])
 def page_tag():
     tag_name = request.args.get('tag')
-    tags = search_tag(tag_name)
+    tags = search_tag(tag_name, POST_PATH)
     return render_template('post_by_tag.html', tags=tags, tag_name=tag_name)
 
 
@@ -25,10 +25,14 @@ def page_post_create():
     data = read_json(POST_PATH)
     if request.method == "GET":
         return render_template("post_form.html")
-    else:
-        file = request.files['picture']
-        add_post = jsondump(POST_PATH, file, data, UPLOAD_FOLDER, request)
-        return render_template("post_uploaded.html", **add_post)
+    if request.method == "POST":
+        try:
+            file = request.files['picture']
+        except:
+            return '', 400
+        else:
+            add_post = jsondump(POST_PATH, file, data, UPLOAD_FOLDER, request)
+            return render_template("post_uploaded.html", **add_post)
 
 
 @app.route("/uploads/images/<path:path>")

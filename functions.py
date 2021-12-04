@@ -19,7 +19,7 @@ def view_tag(POST_PATH):
     tags = []
     for i in read_json(POST_PATH):
         for tag in i['content'].split(' '):
-            if '#' in tag:
+            if tag.startswith("#"):
                 tags.append(tag.lstrip("#").lower())
     tags = set(tags)
     return tags

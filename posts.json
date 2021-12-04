@@ -42,5 +42,9 @@
     {
         "pic": "../uploads/images/528861.jpg",
         "content": "#DINO Ferrari Dino 246GT"
+    },
+    {
+        "pic": "../uploads/images/ворд.png",
+        "content": "Тестовый пост"
     }
 ]

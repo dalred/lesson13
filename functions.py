@@ -27,7 +27,7 @@ def view_tag(POST_PATH):
 def jsondump(POST_PATH, file, data, UPLOAD_FOLDER, request):
     path = Path(os.path.abspath(__file__)).parent
     if not os.path.exists(path.joinpath("uploads", file.filename)):
-        file.save(path.joinpath("uploads/images", file.filename))
+        file.save(path.joinpath(UPLOAD_FOLDER, file.filename))
     add_post = {
         "pic": f"../{UPLOAD_FOLDER}/{file.filename}",
         "content": request.form.get("content"),

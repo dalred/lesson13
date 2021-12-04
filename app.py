@@ -17,7 +17,7 @@ def page_index():
 def page_tag():
     tag_name = request.args.get('tag')
     if not tag_name:
-        abort(400)
+        return "Record not found", 400
     tags = search_tag(tag_name, POST_PATH)
     return render_template('post_by_tag.html', tags=tags, tag_name=tag_name)
 

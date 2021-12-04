@@ -10,7 +10,7 @@ app = Flask(__name__)
 @app.route("/")
 def page_index():
     tags = view_tag(POST_PATH)
-    return "render_template('index.html', tags=tags)"
+    return render_template('index.html', tags=tags)
 
 
 @app.route("/tag/", methods=["GET"])
